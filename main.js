@@ -1,3 +1,5 @@
+'use strict'
+
 let str = 'Рядок'; //string
 let age = 40; // number
 let isDeveloper = true; //boolean
