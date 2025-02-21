@@ -1,16 +1,20 @@
-// Чи всі цифри тризначного числа однакові?
-let number = prompt ("Введіть тризначне число")
+let numOrStr = prompt('input number or string');
+console.log(numOrStr);
 
-// Виділяємо цифри
-let hundreds = (number / 100) | 0; // Сотні
-let tens = ((number % 100) / 10) | 0; // Десятки
-let ones = number % 10; // Одиниці
+switch (true) {
+  case numOrStr === null:
+    console.log('ви скасували');
+    break;
 
-// Перевірка
-if (hundreds === tens && tens === ones) {
-  alert("Усі цифри числа однакові.");
-} else if (hundreds === tens || hundreds === ones || tens === ones) {
-  alert("Є однакові цифри.");
-} else {
-  alert("Усі цифри різні.");
+  case numOrStr.trim() === '':
+    console.log('Empty String');
+    break;
+
+  case isNaN(+numOrStr):
+    console.log('number is Ba_NaN');
+    break;
+
+  default:
+    console.log('OK!');
+    break;
 }
