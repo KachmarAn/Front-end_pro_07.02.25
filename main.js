@@ -16,5 +16,4 @@ switch (true) {
 
   default:
     console.log('OK!');
-    break;
 }
