@@ -1,19 +1,11 @@
-let numOrStr = prompt('input number or string');
-console.log(numOrStr);
+'use strict';
 
-switch (true) {
-  case numOrStr === null:
-    console.log('ви скасували');
-    break;
+let number = 20;
+let result = '';
 
-  case numOrStr.trim() === '':
-    console.log('Empty String');
-    break;
-
-  case isNaN(+numOrStr):
-    console.log('number is Ba_NaN');
-    break;
-
-  default:
-    console.log('OK!');
+while (number <= 30) {
+  result += number + ' ';
+  number += 0.5;
 }
+
+console.log(result.trim());
