@@ -1,11 +1,6 @@
 'use strict';
 
-let number = 20;
-let result = '';
-
-while (number <= 30) {
-  result += number + ' ';
-  number += 0.5;
+const rate = 26; // Курс долара
+for (let dollars = 10; dollars <= 100; dollars += 10) {
+  console.log(`${dollars} USD = ${dollars * rate} UAH`);
 }
-
-console.log(result.trim());
