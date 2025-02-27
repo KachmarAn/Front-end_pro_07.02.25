@@ -1,10 +1,15 @@
 'use strict'
 
-const N = +prompt("Введіть ціле число N: "); // Унарний плюс конвертує в число
+const N = +prompt("Введіть ціле число: ");
+let i = 2;
 
-for (let i = 1; i <= 100; i++) {
-    if (i * i <= N) {
-        console.log(i);
-    } 
+for (; i < N; i++) {
+    if (N % i === 0) {
+        console.log(`${N} не є простим числом`);
+        break;
+    }
 }
 
+if (i === N && N > 1) {
+    console.log(`${N} є простим числом`);
+}
