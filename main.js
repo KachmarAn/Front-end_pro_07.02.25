@@ -1,17 +1,10 @@
-function averageOfNumbers(arr) {
-    // Фільтруємо тільки числові значення
-    let num = arr.filter(item => typeof item === 'number');
-
-    // Якщо числових значень немає, повертаємо null або 0
-    if (num.length === 0) return null;
-
-    // Обчислюємо суму чисел
-    let sum = num.reduce((acc, num) => acc + num, 0);
-
-    // Обчислюємо середнє арифметичне
-    return sum / num.length;
+'use strict';
+function removeElement(arr, item) {
+    return arr.filter(element => element !== item);
 }
 
-// Приклад використання
-const mixedArray = [50, "hello", 70, null, 10, "rumba", 40, false];
-console.log(averageOfNumbers(mixedArray)); // Виведе результат
+const arr = [1, 3, 4, 6, 2, 5, 7, 4]; // Додаємо ще один 4 для перевірки
+const newArr = removeElement(arr, 4);
+
+console.log(newArr); // [1, 3, 6, 2, 5, 7]
+console.log(arr); // [1, 3, 4, 6, 2, 5, 7, 4] (оригінальний масив не змінюється)
