@@ -1,15 +1,11 @@
-'use strict'
-
-const N = +prompt("Введіть ціле число: ");
-let i = 2;
-
-for (; i < N; i++) {
-    if (N % i === 0) {
-        console.log(`${N} не є простим числом`);
-        break;
-    }
+function removeChars(str, charsToRemove) {
+    return str.split('').filter(char => !charsToRemove.includes(char)).join('');
 }
 
-if (i === N && N > 1) {
-    console.log(`${N} є простим числом`);
-}
+// Отримуємо вхідні дані від користувача
+const inputString = prompt("Введіть рядок:");
+const charsToRemove = prompt("Введіть символи для видалення без пробілів:").split('');
+
+// Викликаємо функцію та виводимо результат
+const result = removeChars(inputString, charsToRemove);
+console.log("Результат:", result);
