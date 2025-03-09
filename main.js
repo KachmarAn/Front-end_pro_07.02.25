@@ -1,16 +1,9 @@
 'use strict';
-function createSum() {
-    let total = 0;
-
-    return function(num) {
-        total += num;
-        return total;
+function multiply(a) {
+    return function(b) {
+        return a * b;
     };
 }
 
-const sum = createSum();
-
-console.log(sum(2));
-console.log(sum(4));
-console.log(sum(6));
-console.log(sum(8));
+const result = multiply(5)(2);
+console.log (result);
