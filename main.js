@@ -1,10 +1,16 @@
 'use strict';
-function removeElement(arr, item) {
-    return arr.filter(element => element !== item);
+function createSum() {
+    let total = 0;
+
+    return function(num) {
+        total += num;
+        return total;
+    };
 }
 
-const arr = [1, 3, 4, 6, 2, 5, 7, 4]; // Додаємо ще один 4 для перевірки
-const newArr = removeElement(arr, 4);
+const sum = createSum();
 
-console.log(newArr); // [1, 3, 6, 2, 5, 7]
-console.log(arr); // [1, 3, 4, 6, 2, 5, 7, 4] (оригінальний масив не змінюється)
+console.log(sum(2));
+console.log(sum(4));
+console.log(sum(6));
+console.log(sum(8));
