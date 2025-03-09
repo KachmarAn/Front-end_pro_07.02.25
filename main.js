@@ -1,18 +1,21 @@
 'use strict';
-function askNum() {
-    let num1;
-    let att = 10;
 
-    for (let i = 0; i < att; i++) {
-        num1 = prompt("Введіть число більше 100:");
+const ladder = {
+    step: 0,
 
-        // Перевіряємо, чи це число і чи воно більше 100
-        if (num1 !== null && !isNaN(num1) && Number(num1) > 100) {
-            console.log("Останнє введене число:", num1);
-            return;
-        }
+    up: function () {
+        this.step++;
+        return this;
+    },
+
+    down: function () {
+        this.step--;
+        return this;
+    },
+
+    showStep: function () {
+        console.log(this.step);
+        return this;
     }
-    console.log("Ліміт спроб вичерпано. Останнє введене число:", num1);
-}
-
-askNum();
+};
+ladder.up().up().down().up().up().down().up().up().down().up().up().down().showStep();
