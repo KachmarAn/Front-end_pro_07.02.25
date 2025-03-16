@@ -1,17 +1,5 @@
 'use strict';
 
-let user = {
-    name: 'John',
-    age: 30,
-    location: 'Ukraine, Kyiv',
-    email: 'john@gmail.com',
-
-info: function () {
-    console.log (`Name: ${user.name}`);
-    console.log (`Age: ${user.age}`);
-    console.log (`Location: ${user.location}`);
-    console.log (`Email: ${user.email}`);
-     }
-}
-
-user.info ();
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let newNumbers = numbers.filter(num => num % 2 === 0);
+console.log(newNumbers);
