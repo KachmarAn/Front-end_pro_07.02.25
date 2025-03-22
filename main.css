@@ -17,18 +17,21 @@ body {
     height: 100vh;
     background-color: #f4f4f4;
 }
-table {
-    border-collapse: collapse;
-    background: white;
+
+#text {
+    font-size: 24px;
+    color: black;
 }
-th, td {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
-}
-th {
-    background-color: #ffcc00;
-}
-td:first-child, th:first-child {
-    background-color: #ffeb99;
+
+button {
+    width: 150px;
+    height: 60px;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #72dc57;
+    font-weight: bold;
+    color: #3375df;
 }
