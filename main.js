@@ -1,15 +1,9 @@
 'use strict';
 
-let isColored = false;
+function showRandomImage() {
+    let randomNumber = Math.floor(Math.random() * 9) + 1;
+    let imagePath = `img/${randomNumber}.jpg`;
+    document.getElementById("randomImage").src = imagePath;
+}
 
-document.getElementById("toggleColorBtn").addEventListener("click", function() {
-    let textElement = document.getElementById("text");
-
-    if (isColored) {
-        textElement.style.color = "#040404";
-    } else {
-        textElement.style.color = "#383cdd";
-    }
-
-    isColored = !isColored;
-});
+showRandomImage();
