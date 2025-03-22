@@ -1,22 +1,28 @@
 'use strict';
 
-const phoneBook = {
-    contacts: [
-        { name: "Alex", phone: "+380501234567", email: "Alex@example.com" },
-        { name: "Alice", phone: "+380931112233", email: "Alice@example.com" }
-    ],
-
-   findContact: function (name) {
-        let contact = this.contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
-        return contact ? contact : `Контакт з іменем "${name}" не знайдено.`;
-    },
-
-   addContact: function (name, phone, email) {
-        this.contacts.push({ name, phone, email });
-        console.log(`Контакт "${name}" успішно додано!`);
+function pythagorasTable(size) {
+    let table = document.getElementById("multiplication");
+    for (let i = 0; i <= size; i++) {
+        let row = document.createElement("tr");
+        for (let j = 0; j <= size; j++) {
+            let cell;
+            if (i === 0 && j === 0) {
+                cell = document.createElement("th");
+                cell.textContent = "×";
+            } else if (i === 0) {
+                cell = document.createElement("th");
+                cell.textContent = j;
+            } else if (j === 0) {
+                cell = document.createElement("th");
+                cell.textContent = i;
+            } else {
+                cell = document.createElement("td");
+                cell.textContent = i * j;
+            }
+            row.appendChild(cell);
+        }
+        table.appendChild(row);
     }
-};
+}
 
-console.log(phoneBook.findContact("Alice")); // Знайде контакт
-phoneBook.addContact("Bob", "+380671234567", "Bob@example.com");
-console.log(phoneBook.findContact("Bob")); // Виведе новий контакт
+pythagorasTable(10);
