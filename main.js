@@ -1,9 +1,24 @@
 'use strict';
 
-function showRandomImage() {
-    let randomNumber = Math.floor(Math.random() * 9) + 1;
-    let imagePath = `img/${randomNumber}.jpg`;
-    document.getElementById("randomImage").src = imagePath;
+let savedLink = '';
+
+function saveLink() {
+    let userLink = prompt("Введіть URL-адресу:");
+    if (userLink) {
+        // Перевіряємо, чи посилання починається з http або https
+        if (!userLink.startsWith("http://") && !userLink.startsWith("https://")) {
+            alert("Некоректне посилання! Додано 'https://' на початок.");
+            userLink = "https://" + userLink;
+        }
+        savedLink = userLink;
+        alert("Посилання збережено!");
+    }
 }
 
-showRandomImage();
+function goToLink() {
+    if (savedLink) {
+        window.location.href = savedLink;
+    } else {
+        alert("Спочатку введіть посилання!");
+    }
+}
