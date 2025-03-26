@@ -1,24 +1,11 @@
 'use strict';
 
-let savedLink = '';
+const container = document.getElementById('button-container');
 
-function saveLink() {
-    let userLink = prompt("Введіть URL-адресу:");
-    if (userLink) {
-        // Перевіряємо, чи посилання починається з http або https
-        if (!userLink.startsWith("http://") && !userLink.startsWith("https://")) {
-            alert("Некоректне посилання! Додано 'https://' на початок.");
-            userLink = "https://" + userLink;
-        }
-        savedLink = userLink;
-        alert("Посилання збережено!");
+container.addEventListener('click', function(event) {
+    if (event.target.tagName === 'BUTTON') {
+        const buttonName = event.target.getAttribute('data-name');
+        alert(`Ви натиснули: ${buttonName}`);
+        console.log(`Ви натиснули: ${buttonName}`)
     }
-}
-
-function goToLink() {
-    if (savedLink) {
-        window.location.href = savedLink;
-    } else {
-        alert("Спочатку введіть посилання!");
-    }
-}
+});
