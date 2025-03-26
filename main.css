@@ -19,15 +19,62 @@ body {
     background-color: #f4f4f4;
 }
 
-button {
-    width: 150px;
-    height: 60px;
-    border-radius: 8px;
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+#todo-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    background: #f4f4f4;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 15px;
+}
+
+.delete-btn {
+    background: red;
+    color: white;
+    padding: 8px 12px;
+    width: 95px;
+    margin: 0;
+    border: none;
     cursor: pointer;
-    background-color: #72dc57;
-    font-weight: bold;
-    color: #3375df;
+    border-radius: 0 5px 5px 0;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}
+
+input {
+    padding: 8px;
+    margin: 0;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+#add-task {
+    padding: 8px 12px;
+    width: 95px;
+    margin: 0;
+    border: none;
+    background: green;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    font-size: 14px;
+}
+
+#add-task:hover {
+    background: darkgreen;
 }

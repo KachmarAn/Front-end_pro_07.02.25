@@ -1,11 +1,23 @@
 'use strict';
 
-const container = document.getElementById('button-container');
+const taskInput = document.getElementById("task-input");
+const addTaskButton = document.getElementById("add-task");
+const taskList = document.getElementById("task-list");
 
-container.addEventListener('click', function(event) {
-    if (event.target.tagName === 'BUTTON') {
-        const buttonName = event.target.getAttribute('data-name');
-        alert(`Клікнуто на кнопці: ${buttonName}`);
-        console.log(`Клікнуто на кнопці: ${buttonName}`)
+addTaskButton.addEventListener("click", function () {
+    const taskText = taskInput.value.trim();
+    if (taskText === "") return;
+
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${taskText}</span> <button class="delete-btn">Видалити</button>`;
+
+    taskList.before(li);
+
+    taskInput.value = "";
+});
+
+document.body.addEventListener("click", function (event) {
+    if (event.target.classList.contains("delete-btn")) {
+        event.target.parentElement.remove();
     }
 });
