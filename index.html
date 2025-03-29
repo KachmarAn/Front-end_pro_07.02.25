@@ -7,11 +7,34 @@
     <title>FrontendPro</title>
 </head>
 <body>
-<div id="todo-container">
-    <ul id="task-list">
-    </ul>
-    <input type="text" id="task-input" placeholder="Додати нове завдання">
-    <button id="add-task">Додати</button>
+<form id="regForm">
+    <h2>We would like to help you</h2>
+
+    <label>
+        <input type="text" name="name" placeholder="Name"/>
+        <div class="error" id="error-name"></div>
+    </label>
+
+    <label>
+        <input class="msg" type="text" name="msg" placeholder="Message"/>
+        <div class="error" id="error-msg"></div>
+    </label>
+
+    <h3>HOW TO ANSWER YOU?</h3>
+
+    <label>
+        <input type="text" name="phone" placeholder="Phone number"/>
+        <div class="error" id="error-phone"></div>
+    </label>
+
+    <label>
+        <input type="email" name="email" placeholder="Email"/>
+        <div class="error" id="error-email"></div>
+    </label>
+
+    <button type="submit">Send message</button>
+</form>
+
 
 </div>
 <script src="main.js"></script>

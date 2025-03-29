@@ -1,23 +1,61 @@
 'use strict';
 
-const taskInput = document.getElementById("task-input");
-const addTaskButton = document.getElementById("add-task");
-const taskList = document.getElementById("task-list");
+function showFormError(selectorName, errorMessage) {
+    document.querySelector(`#error-${selectorName}`).textContent = errorMessage;
+}
 
-addTaskButton.addEventListener("click", function () {
-    const taskText = taskInput.value.trim();
-    if (taskText === "") return;
+document.getElementById("regForm").addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    const li = document.createElement("li");
-    li.innerHTML = `<span>${taskText}</span> <button class="delete-btn">Видалити</button>`;
+    const formData = new FormData(e.target);
+    const name = formData.get("name").trim();
+    const msg = formData.get("msg").trim();
+    const phone = formData.get("phone").trim();
+    const email = formData.get("email").trim();
 
-    taskList.before(li);
+    let hasError = false;
 
-    taskInput.value = "";
-});
+    if (!name || name.length < 3) {
+        showFormError("name", "Name required (min. 3 characters)!");
+        hasError = true;
+    } else {
+        showFormError("name", "");
+    }
 
-document.body.addEventListener("click", function (event) {
-    if (event.target.classList.contains("delete-btn")) {
-        event.target.parentElement.remove();
+    if (!msg || msg.length < 5) {
+        showFormError("msg", "Message must be at least 5 characters!");
+        hasError = true;
+    } else {
+        showFormError("msg", "");
+    }
+
+    const phoneRegex = /^\+380\d{9}$/;
+    if (!phone) {
+        showFormError("phone", "Phone number required!");
+        hasError = true;
+    } else if (!phoneRegex.test(phone)) {
+        showFormError("phone", "Phone must start with +380 and have 9 digits!");
+        hasError = true;
+    } else {
+        showFormError("phone", "");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+        showFormError("email", "Email required!");
+        hasError = true;
+    } else if (!emailRegex.test(email)) {
+        showFormError("email", "Invalid email format!");
+        hasError = true;
+    } else {
+        showFormError("email", "");
+    }
+
+    if (!hasError) {
+        console.log("✅ Form submitted with data:");
+        console.log("Name:", name);
+        console.log("Message:", msg);
+        console.log("Phone:", phone);
+        console.log("Email:", email);
     }
 });

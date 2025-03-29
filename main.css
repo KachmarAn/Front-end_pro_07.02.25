@@ -10,71 +10,73 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Monserat, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    background-color: #f4f4f4;
-}
-
-#todo-container {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: left;
-}
-
-ul {
-    list-style: none;
-}
-
-li {
-    background: #f4f4f4;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-    padding-left: 15px;
-}
-
-.delete-btn {
-    background: red;
-    color: white;
-    padding: 8px 12px;
-    width: 95px;
-    margin: 0;
-    border: none;
-    cursor: pointer;
-    border-radius: 0 5px 5px 0;
-    font-size: 14px;
-}
-
-.delete-btn:hover {
-    background: darkred;
+    background-color: rgba(245, 245, 250, 1);
 }
 
 input {
     padding: 8px;
-    margin: 0;
-    width: 300px;
+    margin-bottom: 15px;
+    width: 590px;
+    height: 56px;
     border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-}
-
-#add-task {
-    padding: 8px 12px;
-    width: 95px;
-    margin: 0;
+    border-radius: 5px;
     border: none;
-    background: green;
-    color: white;
-    cursor: pointer;
-    border-radius: 0 5px 5px 0;
-    font-size: 14px;
 }
 
-#add-task:hover {
-    background: darkgreen;
+.msg {
+    height: 150px;
+}
+
+#regForm {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    width: 650px;
+    min-height: 600px;
+    border-radius: 8px;
+    background-color: #cae0e0c0;
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+button {
+    width: 590px;
+    height: 56px;
+    background-color: #24A3FF;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(36, 163, 255, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+h2 {
+    background: linear-gradient(90.13deg, #F0145A 0.84%, #EF8080 99.96%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    font-size: 38px;
+    margin-bottom: 30px;
+}
+
+h3 {
+    color: #B3B3BA;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.error {
+    color: #f80606;
+    font-size: 14px;
 }
