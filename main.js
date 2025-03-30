@@ -1,61 +1,54 @@
 'use strict';
 
-function showFormError(selectorName, errorMessage) {
-    document.querySelector(`#error-${selectorName}`).textContent = errorMessage;
-}
+document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.querySelector('.slider');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    const dotsContainer = document.querySelector('.slider-dots');
+    const slides = document.querySelectorAll('.team');
 
-document.getElementById("regForm").addEventListener("submit", (e) => {
-    e.preventDefault();
+    let currentSlide = 0;
 
-    const formData = new FormData(e.target);
-    const name = formData.get("name").trim();
-    const msg = formData.get("msg").trim();
-    const phone = formData.get("phone").trim();
-    const email = formData.get("email").trim();
+    slides.forEach((slide, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
 
-    let hasError = false;
+    function updateSlider() {
+        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    if (!name || name.length < 3) {
-        showFormError("name", "Name required (min. 3 characters)!");
-        hasError = true;
-    } else {
-        showFormError("name", "");
+        prevBtn.classList.toggle('hidden', currentSlide === 0);
+        nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+
+        document.querySelectorAll('.dot').forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
     }
 
-    if (!msg || msg.length < 5) {
-        showFormError("msg", "Message must be at least 5 characters!");
-        hasError = true;
-    } else {
-        showFormError("msg", "");
+    function goToSlide(slideIndex) {
+        currentSlide = slideIndex;
+        updateSlider();
     }
 
-    const phoneRegex = /^\+380\d{9}$/;
-    if (!phone) {
-        showFormError("phone", "Phone number required!");
-        hasError = true;
-    } else if (!phoneRegex.test(phone)) {
-        showFormError("phone", "Phone must start with +380 and have 9 digits!");
-        hasError = true;
-    } else {
-        showFormError("phone", "");
+    function nextSlide() {
+        if (currentSlide < slides.length - 1) {
+            currentSlide++;
+            updateSlider();
+        }
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email) {
-        showFormError("email", "Email required!");
-        hasError = true;
-    } else if (!emailRegex.test(email)) {
-        showFormError("email", "Invalid email format!");
-        hasError = true;
-    } else {
-        showFormError("email", "");
+    function prevSlide() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateSlider();
+        }
     }
 
-    if (!hasError) {
-        console.log("✅ Form submitted with data:");
-        console.log("Name:", name);
-        console.log("Message:", msg);
-        console.log("Phone:", phone);
-        console.log("Email:", email);
-    }
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    updateSlider();
 });

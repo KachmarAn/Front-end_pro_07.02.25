@@ -7,36 +7,50 @@
     <title>FrontendPro</title>
 </head>
 <body>
-<form id="regForm">
-    <h2>We would like to help you</h2>
+<div class="slider-container">
+    <div class="slider">
+        <div class="team">
+            <div class="imgt">
+                <img width="500" height="500" src="./img/Team-1.png" alt="Олександр Олександровський">
+            </div>
+            <div class="part">
+                <a href="#">команда ></a>
+                <h1>Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу, навіть у ситуаціях, коли більшість безсилі.</h1>
+                <h4>Олександр Олександровський</h4>
+                <div>Керуючий партнер</div>
+            </div>
+        </div>
+        <div class="team">
+            <div class="imgt">
+                <img width="500" height="500" src="./img/Team-1.png" alt="Олександр Олександровський">
+            </div>
+            <div class="part">
+                <a href="#">команда ></a>
+                <h1>Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу, навіть у ситуаціях, коли більшість безсилі.</h1>
+                <h4>Олександр Олександровський</h4>
+                <div>Керуючий партнер</div>
+            </div>
+        </div>
+        <div class="team">
+            <div class="imgt">
+                <img width="500" height="500" src="./img/Team-1.png" alt="Олександр Олександровський">
+            </div>
+            <div class="part">
+                <a href="#">команда ></a>
+                <h1>Ми звикли брати на себе відповідальність та завжди гарантуємо чесну, вчасну допомогу, навіть у ситуаціях, коли більшість безсилі.</h1>
+                <h4>Олександр Олександровський</h4>
+                <div>Керуючий партнер</div>
+            </div>
+        </div>
+    </div>
 
-    <label>
-        <input type="text" name="name" placeholder="Name"/>
-        <div class="error" id="error-name"></div>
-    </label>
+    <button class="slider-btn prev hidden">&lt;</button>
+    <button class="slider-btn next">&gt;</button>
 
-    <label>
-        <input class="msg" type="text" name="msg" placeholder="Message"/>
-        <div class="error" id="error-msg"></div>
-    </label>
-
-    <h3>HOW TO ANSWER YOU?</h3>
-
-    <label>
-        <input type="text" name="phone" placeholder="Phone number"/>
-        <div class="error" id="error-phone"></div>
-    </label>
-
-    <label>
-        <input type="email" name="email" placeholder="Email"/>
-        <div class="error" id="error-email"></div>
-    </label>
-
-    <button type="submit">Send message</button>
-</form>
-
-
+    <div class="slider-dots"></div>
 </div>
+
+
 <script src="main.js"></script>
 </body>
 </html>
