@@ -1,54 +1,61 @@
 'use strict';
 
-document.addEventListener('DOMContentLoaded', function () {
-    const slider = document.querySelector('.slider');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const dotsContainer = document.querySelector('.slider-dots');
-    const slides = document.querySelectorAll('.team');
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".js--form");
+    const input = document.querySelector(".js--form__input");
+    const todoList = document.querySelector(".js--todos-wrapper");
 
-    let currentSlide = 0;
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
-    slides.forEach((slide, index) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
+    function saveTodos() {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }
 
-    function updateSlider() {
-        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    function renderTodos() {
+        todoList.innerHTML = "";
+        todos.forEach((todo, index) => {
+            const li = document.createElement("li");
+            li.className = `todo-item ${todo.checked ? "todo-item--checked" : ""}`;
 
-        prevBtn.classList.toggle('hidden', currentSlide === 0);
-        nextBtn.classList.toggle('hidden', currentSlide === slides.length - 1);
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = todo.checked;
+            checkbox.addEventListener("change", () => {
+                todos[index].checked = checkbox.checked;
+                saveTodos();
+                renderTodos();
+            });
 
-        document.querySelectorAll('.dot').forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
+            const span = document.createElement("span");
+            span.className = "todo-item__description";
+            span.textContent = todo.text;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "todo-item__delete";
+            deleteButton.textContent = "Видалити";
+            deleteButton.addEventListener("click", () => {
+                todos.splice(index, 1);
+                saveTodos();
+                renderTodos();
+            });
+
+            li.appendChild(checkbox);
+            li.appendChild(span);
+            li.appendChild(deleteButton);
+            todoList.appendChild(li);
         });
     }
 
-    function goToSlide(slideIndex) {
-        currentSlide = slideIndex;
-        updateSlider();
-    }
-
-    function nextSlide() {
-        if (currentSlide < slides.length - 1) {
-            currentSlide++;
-            updateSlider();
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const text = input.value.trim();
+        if (text !== "") {
+            todos.push({ text, checked: false });
+            saveTodos();
+            renderTodos();
+            input.value = "";
         }
-    }
+    });
 
-    function prevSlide() {
-        if (currentSlide > 0) {
-            currentSlide--;
-            updateSlider();
-        }
-    }
-
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
-
-    updateSlider();
+    renderTodos();
 });
