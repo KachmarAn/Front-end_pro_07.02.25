@@ -54,10 +54,10 @@ Student.prototype.summary = function() {
     }
 };
 
-const studentC = new Student("Василь", "Петренко", 2000);
-studentC.grades.push(98, 95, 92);
-studentC.present();
-studentC.present();
-studentC.present();
+const student1 = new Student("Василь", "Петренко", 2000);
+student1.grades.push(98, 95, 92);
+student1.present();
+student1.present();
+student1.present();
 
-console.log(studentC.summary()); // Молодець!
+console.log(student1.summary()); // Молодець!
