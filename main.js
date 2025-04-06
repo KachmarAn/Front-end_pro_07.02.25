@@ -1,61 +1,63 @@
 'use strict';
 
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector(".js--form");
-    const input = document.querySelector(".js--form__input");
-    const todoList = document.querySelector(".js--todos-wrapper");
+function Student(firstName, lastName, birthYear) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthYear = birthYear;
+    this.grades = [];
+    this.attendance = new Array(25).fill(null);
+}
 
-    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+Student.prototype.getAge = function() {
+    return new Date().getFullYear() - this.birthYear;
+};
 
-    function saveTodos() {
-        localStorage.setItem("todos", JSON.stringify(todos));
+Student.prototype.getAverageGrade = function() {
+    if (this.grades.length === 0) return 0;
+    return this.grades.reduce((sum, grade) => sum + grade, 0) / this.grades.length;
+};
+
+Student.prototype.present = function() {
+    const index = this.attendance.indexOf(null);
+    if (index !== -1) {
+        this.attendance[index] = true;
+    } else {
+        console.log("Всі заняття вже заповнені.");
     }
+};
 
-    function renderTodos() {
-        todoList.innerHTML = "";
-        todos.forEach((todo, index) => {
-            const li = document.createElement("li");
-            li.className = `todo-item ${todo.checked ? "todo-item--checked" : ""}`;
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = todo.checked;
-            checkbox.addEventListener("change", () => {
-                todos[index].checked = checkbox.checked;
-                saveTodos();
-                renderTodos();
-            });
-
-            const span = document.createElement("span");
-            span.className = "todo-item__description";
-            span.textContent = todo.text;
-
-            const deleteButton = document.createElement("button");
-            deleteButton.className = "todo-item__delete";
-            deleteButton.textContent = "Видалити";
-            deleteButton.addEventListener("click", () => {
-                todos.splice(index, 1);
-                saveTodos();
-                renderTodos();
-            });
-
-            li.appendChild(checkbox);
-            li.appendChild(span);
-            li.appendChild(deleteButton);
-            todoList.appendChild(li);
-        });
+Student.prototype.absent = function() {
+    const index = this.attendance.indexOf(null);
+    if (index !== -1) {
+        this.attendance[index] = false;
+    } else {
+        console.log("Всі заняття вже заповнені.");
     }
+};
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const text = input.value.trim();
-        if (text !== "") {
-            todos.push({ text, checked: false });
-            saveTodos();
-            renderTodos();
-            input.value = "";
-        }
-    });
+Student.prototype.getAttendanceRate = function() {
+    const lessons = this.attendance.filter(item => item !== null);
+    if (lessons.length === 0) return 0;
+    const present = lessons.filter(item => item === true).length;
+    return present / lessons.length;
+};
 
-    renderTodos();
-});
+Student.prototype.summary = function() {
+    const avgGrade = this.getAverageGrade();
+    const attendanceRate = this.getAttendanceRate();
+    if (avgGrade > 90 && attendanceRate > 0.9) {
+        return "Молодець!";
+    } else if (avgGrade > 90 || attendanceRate > 0.9) {
+        return "Добре, але можна краще";
+    } else {
+        return "Редиска!";
+    }
+};
+
+const studentC = new Student("Василь", "Петренко", 2000);
+studentC.grades.push(98, 95, 92);
+studentC.present();
+studentC.present();
+studentC.present();
+
+console.log(studentC.summary()); // Молодець!
