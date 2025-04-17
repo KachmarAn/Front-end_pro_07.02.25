@@ -1,39 +1,32 @@
 'use strict';
 
-class BankAccount {
-    constructor(initialBalance) {
-        this.balance = initialBalance;
-    }
+let startTime = "01:27";
 
-    getBalance() {
-        return this.balance;
-    }
+let timerDisplay = document.getElementById("timer");
+let timerInterval;
 
-    deposit(amount) {
-        if (amount > 0) {
-            this.balance += amount;
-        } else {
-            console.log("Сума для внесення має жбути більшою за 0")
+function startTimer(startTimeStr) {
+    let parts = startTimeStr.split(":");
+    let minutes = parseInt(parts[0]);
+    let seconds = parseInt(parts[1]);
+    let totalSeconds = minutes * 60 + seconds;
+
+    function updateTimer() {
+        if (totalSeconds < 0) {
+            clearInterval(timerInterval);
+            timerDisplay.textContent = "Час вийшов!";
+            return;
         }
+
+        let currentMinutes = Math.floor(totalSeconds / 60);
+        let currentSeconds = totalSeconds % 60;
+
+        timerDisplay.textContent = `${String(currentMinutes).padStart(2, '0')}:${String(currentSeconds).padStart(2, '0')}`;
+        totalSeconds--;
     }
 
-    withdraw(amount) {
-        if (amount > 0 && amount <= this.balance) {
-            this.balance -= amount;
-        } else {
-            console.log("Недостатньо коштів")
-        }
-    }
+    updateTimer();
+    timerInterval = setInterval(updateTimer, 1000);
 }
 
-const account1 = new BankAccount(1000);
-
-console.log(account1.getBalance()); // 1000
-
-account1.deposit(500);
-
-console.log(account1.getBalance()); // 1500
-
-account1.withdraw(200);
-
-console.log(account1.getBalance()); // 1300
+startTimer(startTime);
