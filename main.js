@@ -1,31 +1,41 @@
 'use strict';
 
-// Початковий час таймера в секундах
-let initialSeconds = 87; // Еквівалентно 01:27 (60 + 27)
+const apiKey = '4529e9ae06dd8e8b52556f628137f5ab'; // Замініть на свій API ключ
+const city = 'Dnipro'; // Можете змінити на потрібне місто
+const weatherIconElement = document.getElementById('weather-icon');
+const cityElement = document.getElementById('city');
+const temperatureElement = document.getElementById('temperature');
+const descriptionElement = document.getElementById('description');
+const detailsElement = document.getElementById('details');
+const updateButton = document.getElementById('update-weather');
 
-let timerDisplay = document.getElementById("timer");
-let timerInterval;
-let totalSeconds;
-
-function updateTimer() {
-    if (totalSeconds < 0) {
-        clearInterval(timerInterval);
-        timerDisplay.textContent = "Час вийшов!";
-        return;
+async function fetchWeatherData() {
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=uk`);
+        const data = await response.json();
+        updateWeatherUI(data);
+    } catch (error) {
+        console.error('Помилка отримання даних про погоду:', error);
+        cityElement.textContent = 'Помилка завантаження погоди';
     }
-
-    let currentMinutes = Math.floor(totalSeconds / 60);
-    let currentSeconds = totalSeconds % 60;
-
-    timerDisplay.textContent = `${String(currentMinutes).padStart(2, '0')}:${String(currentSeconds).padStart(2, '0')}`;
-    totalSeconds--;
 }
 
-function startTimer(seconds) {
-    totalSeconds = seconds;
-    updateTimer(); // Одразу відобразити початковий час
-    timerInterval = setInterval(updateTimer, 1000);
+function updateWeatherUI(data) {
+    const { name, main, weather, wind } = data;
+    const temperature = Math.round(main.temp);
+    const description = weather[0].description;
+    const iconCode = weather[0].icon;
+    const humidity = main.humidity;
+    const pressure = main.pressure;
+    const windSpeed = wind.speed;
+
+    cityElement.textContent = name;
+    temperatureElement.textContent = `${temperature}°C`;
+    descriptionElement.textContent = description;
+    detailsElement.textContent = `Вологість: ${humidity}%, Тиск: ${pressure} гПа, Вітер: ${windSpeed} м/с`;
+    weatherIconElement.innerHTML = `<img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="${description}">`;
 }
 
-// Запуск таймера з заданої кількості секунд
-startTimer(initialSeconds);
+updateButton.addEventListener('click', fetchWeatherData);
+
+fetchWeatherData();
