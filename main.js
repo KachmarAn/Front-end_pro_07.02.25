@@ -1,7 +1,7 @@
 'use strict';
 
-const apiKey = '4529e9ae06dd8e8b52556f628137f5ab'; // Замініть на свій API ключ
-const city = 'Dnipro'; // Можете змінити на потрібне місто
+const apiKey = '4529e9ae06dd8e8b52556f628137f5ab';
+const city = 'Dnipro';
 const weatherIconElement = document.getElementById('weather-icon');
 const cityElement = document.getElementById('city');
 const temperatureElement = document.getElementById('temperature');
