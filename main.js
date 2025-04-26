@@ -1,41 +1,84 @@
 'use strict';
 
-const apiKey = '4529e9ae06dd8e8b52556f628137f5ab'; // Замініть на свій API ключ
-const city = 'Dnipro'; // Можете змінити на потрібне місто
-const weatherIconElement = document.getElementById('weather-icon');
-const cityElement = document.getElementById('city');
-const temperatureElement = document.getElementById('temperature');
-const descriptionElement = document.getElementById('description');
-const detailsElement = document.getElementById('details');
-const updateButton = document.getElementById('update-weather');
+const postsContainer = document.getElementById('posts');
+const form = document.getElementById('postForm');
+const successMessage = document.getElementById('successMessage');
 
-async function fetchWeatherData() {
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=uk`);
-        const data = await response.json();
-        updateWeatherUI(data);
-    } catch (error) {
-        console.error('Помилка отримання даних про погоду:', error);
-        cityElement.textContent = 'Помилка завантаження погоди';
-    }
+function loadPosts() {
+    fetch('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        .then(response => response.json())
+        .then(posts => {
+            posts.forEach(post => {
+                const postEl = document.createElement('div');
+                postEl.classList.add('post');
+                postEl.innerHTML = `
+          <h3>${post.title}</h3>
+          <p>${post.body}</p>
+          <button onclick="loadComments(${post.id}, this)">Завантажити коментарі</button>
+          <div class="comments" id="comments-${post.id}"></div>
+        `;
+                postsContainer.appendChild(postEl);
+            });
+        })
+        .catch(error => {
+            console.error('Помилка при завантаженні постів:', error);
+        });
 }
 
-function updateWeatherUI(data) {
-    const { name, main, weather, wind } = data;
-    const temperature = Math.round(main.temp);
-    const description = weather[0].description;
-    const iconCode = weather[0].icon;
-    const humidity = main.humidity;
-    const pressure = main.pressure;
-    const windSpeed = wind.speed;
-
-    cityElement.textContent = name;
-    temperatureElement.textContent = `${temperature}°C`;
-    descriptionElement.textContent = description;
-    detailsElement.textContent = `Вологість: ${humidity}%, Тиск: ${pressure} гПа, Вітер: ${windSpeed} м/с`;
-    weatherIconElement.innerHTML = `<img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="${description}">`;
+function loadComments(postId, button) {
+    button.disabled = true;
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments?_limit=2`)
+        .then(response => response.json())
+        .then(comments => {
+            const commentsContainer = document.getElementById(`comments-${postId}`);
+            comments.forEach(comment => {
+                const commentEl = document.createElement('div');
+                commentEl.classList.add('comment');
+                commentEl.innerHTML = `
+          <strong>${comment.name}</strong> (<a href="mailto:${comment.email}">${comment.email}</a>)<br/>
+          ${comment.body}
+        `;
+                commentsContainer.appendChild(commentEl);
+            });
+        })
+        .catch(error => {
+            console.error('Помилка при завантаженні коментарів:', error);
+        });
 }
 
-updateButton.addEventListener('click', fetchWeatherData);
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const title = document.getElementById('title').value;
+    const body = document.getElementById('body').value;
 
-fetchWeatherData();
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            title: title,
+            body: body,
+            userId: 1
+        })
+    })
+        .then(response => response.json())
+        .then(newPost => {
+            successMessage.textContent = 'Пост створено успішно!';
+
+            const newPostEl = document.createElement('div');
+            newPostEl.classList.add('post');
+            newPostEl.innerHTML = `
+        <h3>${newPost.title}</h3>
+        <p>${newPost.body}</p>
+        <button onclick="loadComments(${newPost.id}, this)">Завантажити коментарі</button>
+        <div class="comments" id="comments-${newPost.id}"></div>
+      `;
+            postsContainer.prepend(newPostEl);
+
+            form.reset();
+        })
+        .catch(error => {
+            console.error('Помилка при створенні поста:', error);
+        });
+});
+
+loadPosts();
