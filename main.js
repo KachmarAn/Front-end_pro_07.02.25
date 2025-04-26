@@ -1,6 +1,5 @@
 'use strict';
 
-// main.js
 import { fetchPosts } from './js/api.js';
 import { createPostElement } from './js/dom.js';
 import { setupEventListeners } from './js/events.js';
