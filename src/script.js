@@ -1,8 +1,9 @@
 'use strict';
 
-import { fetchPosts } from './js/api.js';
-import { createPostElement } from './js/dom.js';
-import { setupEventListeners } from './js/events.js';
+import './style/main.scss';
+import { fetchPosts } from './api.js';
+import { createPostElement } from './dom.js';
+import { setupEventListeners } from './events.js';
 
 const postsContainer = document.getElementById('posts');
 const form = document.getElementById('postForm');
