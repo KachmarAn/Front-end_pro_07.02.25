@@ -41,7 +41,6 @@ function startEditing(id, editButton) {
     const editInput = li.querySelector('.edit-input');
     const saveButton = li.querySelector('button[onclick*="saveEdit"]');
 
-    // Показуємо поле введення, ховаємо текст і кнопку редагування
     titleSpan.style.display = 'none';
     editInput.style.display = 'inline';
     editButton.style.display = 'none';
