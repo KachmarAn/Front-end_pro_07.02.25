@@ -24,13 +24,53 @@ function renderTodos(todos) {
         li.innerHTML = `
             <input type="checkbox" ${todo.completed ? 'checked' : ''} 
                    onclick="toggleTodo(${todo.id}, ${!todo.completed})">
-            <span style="text-decoration: ${todo.completed ? 'line-through' : 'none'}">
+            <span class="todo-title" style="text-decoration: ${todo.completed ? 'line-through' : 'none'}">
                 ${todo.title}
             </span>
+            <input type="text" class="edit-input" style="display: none;" value="${todo.title}">
+            <button onclick="startEditing(${todo.id}, this)">✏️</button>
             <button onclick="deleteTodo(${todo.id})">❌</button>
+            <button onclick="saveEdit(${todo.id}, this)" style="display: none;">💾</button>
         `;
         list.appendChild(li);
     });
+}
+function startEditing(id, editButton) {
+    const li = editButton.parentElement;
+    const titleSpan = li.querySelector('.todo-title');
+    const editInput = li.querySelector('.edit-input');
+    const saveButton = li.querySelector('button[onclick*="saveEdit"]');
+
+    // Показуємо поле введення, ховаємо текст і кнопку редагування
+    titleSpan.style.display = 'none';
+    editInput.style.display = 'inline';
+    editButton.style.display = 'none';
+    saveButton.style.display = 'inline';
+
+    editInput.focus();
+}
+
+async function saveEdit(id, saveButton) {
+    const li = saveButton.parentElement;
+    const editInput = li.querySelector('.edit-input');
+    const newTitle = editInput.value.trim();
+
+    if (!newTitle) {
+        alert('Назва завдання не може бути порожньою.');
+        return;
+    }
+    if (newTitle.length > 100) {
+        alert('Назва завдання має містити не більше 100 символів.');
+        return;
+    }
+
+    try {
+        await updateTodo(id, { title: newTitle });
+        await fetchTodos();
+    } catch (error) {
+        console.error('Помилка редагування завдання:', error);
+        alert('Не вдалося відредагувати завдання. Спробуйте ще раз.');
+    }
 }
 
 async function addTodo() {
